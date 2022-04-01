@@ -7,9 +7,12 @@ import com.example.libreria.errores.ErrorServicio;
 import com.example.libreria.repositorios.AutorRepositorio;
 import com.example.libreria.repositorios.EditorialRepositorio;
 import com.example.libreria.repositorios.LibroRepositorio;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LibroServicio {
@@ -23,6 +26,7 @@ public class LibroServicio {
     @Autowired
     private EditorialRepositorio editorialRepositorio;
 
+    @Transactional(propagation = Propagation.NESTED)
     public void cargar(Long isbn, String titulo, Integer anio, Integer ejemplares, String idAutor, String idEditorial) throws ErrorServicio {
 
         validar(isbn, titulo, anio);
@@ -55,6 +59,7 @@ public class LibroServicio {
         }        
     }
     
+    @Transactional(propagation = Propagation.NESTED)
     public void modificar(String id, Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, String idAutor, String idEditorial) throws ErrorServicio{
         
         validar(isbn, titulo, anio);
@@ -89,6 +94,7 @@ public class LibroServicio {
         }
     }
     
+    @Transactional(propagation = Propagation.NESTED)
     public void darBaja(String id) throws ErrorServicio{
         
         Optional<Libro> respuestaLibro = libroRepositorio.findById(id);
@@ -102,6 +108,7 @@ public class LibroServicio {
         }   
     }
     
+    @Transactional(propagation = Propagation.NESTED)
     public void darAlta(String id) throws ErrorServicio{
         
         Optional<Libro> respuestaLibro = libroRepositorio.findById(id);
@@ -114,6 +121,21 @@ public class LibroServicio {
             throw new ErrorServicio("El libro indicado no se encuentra en la base de datos");
         }
         
+    }
+    
+    @Transactional(readOnly=true)
+    public List<Libro> mostrar(){
+        return libroRepositorio.findAll();
+    }
+    
+    @Transactional(propagation = Propagation.NESTED)
+    public void borrarPorId(String id) throws ErrorServicio{
+        Optional<Libro> respuesta = libroRepositorio.findById(id);
+        if(respuesta.isPresent()){
+            libroRepositorio.delete(respuesta.get());
+        }else{
+            throw new ErrorServicio("El libro indicado no se encuentra en la base de datos");
+        }
     }
 
     public void validar(Long isbn, String titulo, Integer anio) throws ErrorServicio {
