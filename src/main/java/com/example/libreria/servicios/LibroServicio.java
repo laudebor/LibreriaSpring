@@ -25,18 +25,19 @@ public class LibroServicio {
 
     @Autowired
     private EditorialRepositorio editorialRepositorio;
+    
+    @Autowired
+    private AutorServicio autorServicio;
+    
+    @Autowired
+    private EditorialServicio editorialServicio;
 
     @Transactional(propagation = Propagation.NESTED)
     public void cargar(Long isbn, String titulo, Integer anio, Integer ejemplares, String idAutor, String idEditorial) throws ErrorServicio {
-
         validar(isbn, titulo, anio);
-
         Optional<Autor> respuestaAutor = autorRepositorio.findById(idAutor);
-        
         if (respuestaAutor.isPresent()) {
-            
             Optional<Editorial> respuestaEditorial = editorialRepositorio.findById(idEditorial);
-            
             if (respuestaEditorial.isPresent()) {
                 Libro libro = new Libro();
                 libro.setIsbn(isbn);
@@ -52,6 +53,7 @@ public class LibroServicio {
                 libro.setEditorial(editorial);
                 libroRepositorio.save(libro);
             } else {
+                
                 throw new ErrorServicio("La editorial indicada no se encuentra en la base de datos");
             }
         } else {
@@ -149,5 +151,6 @@ public class LibroServicio {
             throw new ErrorServicio("Debe indicar el año");
         }
     }
+        
 
 }
