@@ -47,19 +47,19 @@
     </div>
   </nav>
 
-  <header class="masthead text-center text-white">
+ <!-- <header class="masthead text-center text-white">
     <div class="masthead-content">
       <div class="container">
         <h1 class="masthead-heading mb-0">Librería</h1>
         <!--<h2 class="masthead-subheading mb-0">Encontrale pareja a tu choco.</h2>
-        <a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>-->
+        <a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>
       </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
     <div class="bg-circle-2 bg-circle"></div>
     <div class="bg-circle-3 bg-circle"></div>
     <div class="bg-circle-4 bg-circle"></div>
-  </header>
+  </header>-->
 
   <section>
     <div class="container">
@@ -87,17 +87,21 @@
               <label>Ejemplares</label>
               <input type="number" class="form-control" name="ejemplares" th:value="${ejemplares}"/>
               
-              <!--<label>Zona</label>
-              <select class="form-control" name="idZona"> 
-              <option th:each="zona : ${zonas}" th:value="${zona.id}" th:text="${zona.nombre}"></option> 
-              </select> -->
+              <label>Autor</label>
+              <select class="form-control" name="idautor"> 
+              <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option> 
+              </select> 
               
+              <label>Editorial</label>
+              <select class="form-control" name="ideditorial"> 
+              <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option> 
+              </select> 
               
-              <label>Id del autor</label>
+              <!--<label>Id del autor</label>
               <input type="text" class="form-control" name="idautor" th:value="${idautor}"/>
               
               <label>Id de la editorial</label>
-              <input type="text" class="form-control" name="ideditorial" th:value="${ideditorial}"/>
+              <input type="text" class="form-control" name="ideditorial" th:value="${ideditorial}"/>-->
               
               <br/><button type="submit" class="btn btn-primary">Registrar</button>
             </form>

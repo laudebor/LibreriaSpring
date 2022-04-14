@@ -3,6 +3,7 @@ package com.example.libreria.servicios;
 import com.example.libreria.entidades.Editorial;
 import com.example.libreria.errores.ErrorServicio;
 import com.example.libreria.repositorios.EditorialRepositorio;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,10 @@ public class EditorialServicio {
         }else{
             throw new ErrorServicio("La editorial indicada no se encuentra en la base de datos");
         }
+    }
+    
+    public List<Editorial> listarEditoriales(){
+        return editorialRepositorio.findAll();
     }
     
     public void darAlta(String id) throws ErrorServicio{

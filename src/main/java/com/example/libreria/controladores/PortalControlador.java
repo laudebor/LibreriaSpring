@@ -1,9 +1,13 @@
 package com.example.libreria.controladores;
 
+import com.example.libreria.entidades.Autor;
+import com.example.libreria.entidades.Editorial;
+import com.example.libreria.entidades.Libro;
 import com.example.libreria.errores.ErrorServicio;
 import com.example.libreria.servicios.AutorServicio;
 import com.example.libreria.servicios.EditorialServicio;
 import com.example.libreria.servicios.LibroServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,17 +37,28 @@ public class PortalControlador {
     }
     
     @GetMapping("/registroLibro")
-    public String registroLibro(){
-        return "registroLibro";
+    public String registroLibro(ModelMap modelo){
+         List<Autor> autores = autorServicio.listarAutores();
+         List<Editorial> editoriales = editorialServicio.listarEditoriales();
+         modelo.put("autores", autores);
+         modelo.put("editoriales", editoriales);
+        return "registroLibro.html";
     }
     
     @GetMapping("/registroAutor")
-    public String registoAutor(){
-        return "registroAutor";
+     public String registroAutor() {
+        return "registroAutor.html";
+    }
+     
+     @GetMapping("/listaLibros")
+     public String listarLibros(ModelMap modelo) {
+         List<Libro> libros = libroServicio.listarLibros();
+         modelo.put("libros", libros);
+        return "listaLibros.html";
     }
     
     @GetMapping("/registroEditorial")
-    public String registoEditorial(){
+    public String registroEditorial(){
         return "registroEditorial";
     }
     
@@ -52,7 +67,10 @@ public class PortalControlador {
         try {
             libroServicio.cargar(isbn, titulo, anio, ejemplares, idautor, ideditorial);
         } catch (ErrorServicio ex) {
-            
+            List<Autor> autores = autorServicio.listarAutores();
+            List<Editorial> editoriales = editorialServicio.listarEditoriales();
+            modelo.put("autores", autores);
+            modelo.put("editoriales", editoriales);
             modelo.put("error", ex.getMessage());
             modelo.put("isbn", isbn);
             modelo.put("titulo", titulo);

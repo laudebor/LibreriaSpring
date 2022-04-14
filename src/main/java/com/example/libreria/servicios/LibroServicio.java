@@ -96,6 +96,10 @@ public class LibroServicio {
         }
     }
     
+    public List<Libro> listarLibros(){
+        return libroRepositorio.findAll();
+    }
+    
     @Transactional(propagation = Propagation.NESTED)
     public void darBaja(String id) throws ErrorServicio{
         

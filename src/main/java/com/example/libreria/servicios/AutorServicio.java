@@ -3,6 +3,7 @@ package com.example.libreria.servicios;
 import com.example.libreria.entidades.Autor;
 import com.example.libreria.errores.ErrorServicio;
 import com.example.libreria.repositorios.AutorRepositorio;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,10 @@ public class AutorServicio {
         }else{
             throw new ErrorServicio("El autor indicado no se encuentra en la base de datos");
         }
+    }
+    
+    public List<Autor> listarAutores(){
+        return autorRepositorio.findAll();
     }
     
     public void darBaja(String id) throws ErrorServicio{
