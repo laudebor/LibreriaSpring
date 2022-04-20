@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Libreria - Modificar libro</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/one-page-wonder.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">Librería</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/registroLibro">Registrar libro</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/registroAutor">Registrar autor</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/registroEditorial">Registrar editorial</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+ <!-- <header class="masthead text-center text-white">
+    <div class="masthead-content">
+      <div class="container">
+        <h1 class="masthead-heading mb-0">Librería</h1>
+        <!--<h2 class="masthead-subheading mb-0">Encontrale pareja a tu choco.</h2>
+        <a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>
+      </div>
+    </div>
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
+  </header>-->
+
+  <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+            <img class="img-fluid rounded-circle" src="img/m1.jpeg" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+            <h2 class="display-4">Completa los nuevos datos del libro</h2>
+            <form action="/modificar" method="GET" enctype="multipart/form-data">                 
+              <p th:if="${error != null}" th:text="${error}" style="color:red;"></p> 
+                
+              <label>Titulo</label>
+              <input type="text" class="form-control" name="titulo" th:value="${titulo}"/>
+
+              <label>ISBN</label>
+              <input type="number" class="form-control" name="isbn" th:value="${isbn}"/>
+              
+              <label>Año</label>
+              <input type="number" class="form-control" name="anio" th:value="${anio}"/>
+                     
+              <label>Ejemplares</label>
+              <input type="number" class="form-control" name="ejemplares" th:value="${ejemplares}"/>
+              
+              <label>Ejemplares prestados</label>
+              <input type="number" class="form-control" name="ejemplaresprestados" th:value="${ejemplaresprestados}"/>
+              
+              <label>Ejemplares restantes</label>
+              <input type="number" class="form-control" name="ejemplaresrestantes" th:value="${ejemplaresrestantes}"/>
+              
+              <label>Autor</label>
+              <select class="form-control" name="idautor"> 
+              <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option> 
+              </select> 
+              
+              <label>Editorial</label>
+              <select class="form-control" name="ideditorial"> 
+              <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option> 
+              </select> 
+              
+              <!--<label>Id del autor</label>
+              <input type="text" class="form-control" name="idautor" th:value="${idautor}"/>
+              
+              <label>Id de la editorial</label>
+              <input type="text" class="form-control" name="ideditorial" th:value="${ideditorial}"/>-->
+              
+              <br/><button type="submit" class="btn btn-primary">Modificar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="py-5 bg-black">
+    <div class="container">
+      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2022</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

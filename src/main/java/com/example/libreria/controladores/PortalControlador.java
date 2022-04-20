@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,6 +115,61 @@ public class PortalControlador {
         return "exito.html";
     }
     
+    
+    @GetMapping("/darBaja/{id}")
+    public String darBajaLibro(ModelMap modelo, @PathVariable String id){
+        try{
+            libroServicio.darBaja(id);
+        }catch(ErrorServicio ex){
+            modelo.put("error", ex.getMessage());
+            //modelo.put("descripcion", "Surgió un error  dar de baja");
+            return "listaLibros";
+        }
+        return "redirect:/listaLibros";
+    }
+    
+    @GetMapping("/darAlta/{id}")
+    public String darAltaLibro(ModelMap modelo, @PathVariable String id){
+        try{
+            libroServicio.darAlta(id);
+        }catch(ErrorServicio ex){
+            modelo.put("error", ex.getMessage());
+            //modelo.put("descripcion", "Surgió un error  dar de baja");
+            return "listaLibros";
+        }
+        return "redirect:/listaLibros";
+    }
+    
+    @GetMapping("modificarLibro")
+    public String modificarLibro(ModelMap modelo){
+        List<Autor> autores = autorServicio.listarAutores();
+         List<Editorial> editoriales = editorialServicio.listarEditoriales();
+         modelo.put("autores", autores);
+         modelo.put("editoriales", editoriales);
+        return "modificarLibro";
+    }
+    @GetMapping("/modificar/{id}")
+    public String modificar(ModelMap modelo, @PathVariable String id, Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, String idAutor, String idEditorial) throws ErrorServicio{
+        try{
+            libroServicio.modificar(id, isbn, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, idAutor, idEditorial);
+        }catch(ErrorServicio ex){
+            List<Autor> autores = autorServicio.listarAutores();
+            List<Editorial> editoriales = editorialServicio.listarEditoriales();
+            modelo.put("autores", autores);
+            modelo.put("editoriales", editoriales);
+            modelo.put("error", ex.getMessage());
+            modelo.put("isbn", isbn);
+            modelo.put("titulo", titulo);
+            modelo.put("anio", anio);
+            modelo.put("ejemplares", ejemplares);
+            modelo.put("ejemplaresprestados", ejemplaresPrestados);
+            modelo.put("ejemplaresrestantes", ejemplaresRestantes);
+            modelo.put("idautor", idAutor);
+            modelo.put("ideditorial", idEditorial);
+            return "modificarLibro";
+        }
+        return "exito";
+    }
     
     @RequestMapping("/accessdenied")
         public ModelAndView accessdenied() {

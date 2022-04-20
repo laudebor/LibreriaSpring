@@ -69,21 +69,24 @@
         <tr>
             <th scope="col">Titulo</th>
             <th scope="col">Editar libro</th>
-            <th scope="col">Eliminar libro</th>
+            <th scope="col">Dar de baja/alta</th>
         </tr>
     </thead>
     <tbody>
-        
+        <p th:if="${error != null}" th:text="${error}" style="color:red;"></p> 
         <tr th:each="libro : ${libros}">
             <td scope="row" th:text="${libro.titulo}"></td>
             <td>
-              <a class="btn btn-info" role="button" style="color: white;">Editar</a>
+              <a class="btn btn-info" role="button" th:href="@{/modificar/{id} (id=${libro.id})}" style="color: white;">Editar</a>
             </td>
-            <td>
-              <a class="btn btn-danger" role="button" style="color: white;">Dar de baja</a>
+            
+            <td th:if="${libro.alta==false}">
+                <a class="btn btn-success" th:href="@{/darAlta/{id} (id=${libro.id})}">Alta</a>
+            </td>
+            <td th:unless="${libro.alta==false}">
+                <a class="btn btn-danger" th:href="@{/darBaja/{id} (id=${libro.id})}" >Baja</a>
             </td>
         </tr>
-      
         
     </tbody>
 </table>
