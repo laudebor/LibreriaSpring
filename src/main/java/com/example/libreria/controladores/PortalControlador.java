@@ -140,32 +140,52 @@ public class PortalControlador {
         return "redirect:/listaLibros";
     }
     
-    @GetMapping("modificarLibro")
+    @GetMapping("/modificarLibro")
     public String modificarLibro(ModelMap modelo){
         List<Autor> autores = autorServicio.listarAutores();
          List<Editorial> editoriales = editorialServicio.listarEditoriales();
          modelo.put("autores", autores);
          modelo.put("editoriales", editoriales);
-        return "modificarLibro";
+        return "modificarLibro.html";
     }
-    @GetMapping("/modificar/{id}")
-    public String modificar(ModelMap modelo, @PathVariable String id, Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, String idAutor, String idEditorial) throws ErrorServicio{
+    
+    @GetMapping("/modificar")
+    public String modificar(ModelMap modelo, @RequestParam String id){
+        List<Autor> autores = autorServicio.listarAutores();
+        List<Editorial> editoriales = editorialServicio.listarEditoriales();
+        modelo.put("autores", autores);
+        modelo.put("editoriales", editoriales);
+        
         try{
-            libroServicio.modificar(id, isbn, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, idAutor, idEditorial);
+            Libro libro = libroServicio.buscarPorId(id);
+            modelo.addAttribute("ejemplar", libro);
+        }catch(ErrorServicio ex){
+            modelo.addAttribute("error", ex.getMessage());
+        }
+        return "modificarLibro.html";
+    }
+    
+    @PostMapping("/actualizar")
+    public String actualizarLibro(ModelMap modelo, @RequestParam String id, @RequestParam Long isbn, @RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam String idautor, @RequestParam String ideditorial){
+        Libro libro = null;
+        try{
+            libro = libroServicio.buscarPorId(id);
+            libroServicio.modificar(id, isbn, titulo, anio, ejemplares, idautor, ideditorial);
         }catch(ErrorServicio ex){
             List<Autor> autores = autorServicio.listarAutores();
             List<Editorial> editoriales = editorialServicio.listarEditoriales();
             modelo.put("autores", autores);
             modelo.put("editoriales", editoriales);
-            modelo.put("error", ex.getMessage());
             modelo.put("isbn", isbn);
             modelo.put("titulo", titulo);
             modelo.put("anio", anio);
             modelo.put("ejemplares", ejemplares);
-            modelo.put("ejemplaresprestados", ejemplaresPrestados);
-            modelo.put("ejemplaresrestantes", ejemplaresRestantes);
-            modelo.put("idautor", idAutor);
-            modelo.put("ideditorial", idEditorial);
+            //modelo.put("ejemplaresprestados", ejemplaresprestados);
+            //modelo.put("ejemplaresrestantes", ejemplaresrestantes);
+            modelo.put("idautor", idautor);
+            modelo.put("ideditorial", ideditorial);    
+            modelo.put("ejemplar", libro);
+            modelo.put("error", ex.getMessage());
             return "modificarLibro";
         }
         return "exito";

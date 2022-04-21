@@ -62,7 +62,7 @@ public class LibroServicio {
     }
     
     @Transactional(propagation = Propagation.NESTED)
-    public void modificar(String id, Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, String idAutor, String idEditorial) throws ErrorServicio{
+    public void modificar(String id, Long isbn, String titulo, Integer anio, Integer ejemplares, String idAutor, String idEditorial) throws ErrorServicio{
         
         validar(isbn, titulo, anio);
         
@@ -80,8 +80,8 @@ public class LibroServicio {
                     libro.setTitulo(titulo);
                     libro.setAnio(anio);
                     libro.setEjemplares(ejemplares);
-                    libro.setEjemplaresPrestados(ejemplaresPrestados);
-                    libro.setEjemplaresRestantes(ejemplaresRestantes);
+                    //libro.setEjemplaresPrestados(ejemplaresPrestados);
+                    //libro.setEjemplaresRestantes(ejemplaresRestantes);
                     libro.setAutor(autor);
                     libro.setEditorial(editorial);
                     libroRepositorio.save(libro);
@@ -132,6 +132,19 @@ public class LibroServicio {
     @Transactional(readOnly=true)
     public List<Libro> mostrar(){
         return libroRepositorio.findAll();
+    }
+    
+    public Libro buscarPorId(String id) throws ErrorServicio{
+        
+        return libroRepositorio.getById(id);
+        
+//            Optional<Libro> respuesta = libroRepositorio.findById(id);
+//        
+//            if(respuesta.isPresent()){
+//                return respuesta.get();
+//            }else{
+//                throw new ErrorServicio("No se encontro el libro");
+//            }
     }
     
     @Transactional(propagation = Propagation.NESTED)

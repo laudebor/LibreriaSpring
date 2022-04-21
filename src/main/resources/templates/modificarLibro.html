@@ -72,35 +72,39 @@
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
             <h2 class="display-4">Completa los nuevos datos del libro</h2>
-            <form action="/modificar" method="GET" enctype="multipart/form-data">                 
+            <form action="/actualizar" method="POST" enctype="multipart/form-data">                 
               <p th:if="${error != null}" th:text="${error}" style="color:red;"></p> 
-                
+              
+              
+              <input type="hidden" class="form-control" name="id" th:value="${ejemplar.id}"/>
+              
               <label>Titulo</label>
-              <input type="text" class="form-control" name="titulo" th:value="${titulo}"/>
+              <input type="text" class="form-control" name="titulo" th:value="${ejemplar.titulo}"/>
 
               <label>ISBN</label>
-              <input type="number" class="form-control" name="isbn" th:value="${isbn}"/>
+              <input type="number" class="form-control" name="isbn" th:value="${ejemplar.isbn}"/>
               
               <label>Año</label>
-              <input type="number" class="form-control" name="anio" th:value="${anio}"/>
+              <input type="number" class="form-control" name="anio" th:value="${ejemplar.anio}"/>
                      
               <label>Ejemplares</label>
-              <input type="number" class="form-control" name="ejemplares" th:value="${ejemplares}"/>
+              <input type="number" class="form-control" name="ejemplares" th:value="${ejemplar.ejemplares}"/>
               
-              <label>Ejemplares prestados</label>
-              <input type="number" class="form-control" name="ejemplaresprestados" th:value="${ejemplaresprestados}"/>
+              <!--<label>Ejemplares prestados</label>
+              <input type="number" class="form-control" name="ejemplaresprestados" th:value="${ejemplar.ejemplaresprestados}"/>
               
               <label>Ejemplares restantes</label>
-              <input type="number" class="form-control" name="ejemplaresrestantes" th:value="${ejemplaresrestantes}"/>
+              <input type="number" class="form-control" name="ejemplaresrestantes" th:value="${ejemplar.ejemplaresrestantes}"/>
+              -->
               
               <label>Autor</label>
               <select class="form-control" name="idautor"> 
-              <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option> 
+              <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}" th:selected="${ejemplar.autor != null && autor.id==ejemplar.autor.id}"></option> 
               </select> 
               
               <label>Editorial</label>
               <select class="form-control" name="ideditorial"> 
-              <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option> 
+              <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}" th:selected="${ejemplar.editorial != null && editorial.id==ejemplar.editorial.id}"></option> 
               </select> 
               
               <!--<label>Id del autor</label>
