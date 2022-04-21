@@ -34,7 +34,7 @@ public class LibroServicio {
 
     @Transactional(propagation = Propagation.NESTED)
     public void cargar(Long isbn, String titulo, Integer anio, Integer ejemplares, String idAutor, String idEditorial) throws ErrorServicio {
-        validar(isbn, titulo, anio);
+        validar(isbn, titulo, anio, ejemplares);
         Optional<Autor> respuestaAutor = autorRepositorio.findById(idAutor);
         if (respuestaAutor.isPresent()) {
             Optional<Editorial> respuestaEditorial = editorialRepositorio.findById(idEditorial);
@@ -62,9 +62,9 @@ public class LibroServicio {
     }
     
     @Transactional(propagation = Propagation.NESTED)
-    public void modificar(String id, Long isbn, String titulo, Integer anio, Integer ejemplares, String idAutor, String idEditorial) throws ErrorServicio{
+    public void modificar(String id, Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresprestados, String idAutor, String idEditorial) throws ErrorServicio{
         
-        validar(isbn, titulo, anio);
+        validar2(isbn, titulo, anio, ejemplares,ejemplaresprestados);
         
         Optional<Libro> respuestaLibro = libroRepositorio.findById(id);
         
@@ -80,8 +80,8 @@ public class LibroServicio {
                     libro.setTitulo(titulo);
                     libro.setAnio(anio);
                     libro.setEjemplares(ejemplares);
-                    //libro.setEjemplaresPrestados(ejemplaresPrestados);
-                    //libro.setEjemplaresRestantes(ejemplaresRestantes);
+                    libro.setEjemplaresPrestados(ejemplaresprestados);
+                    libro.setEjemplaresRestantes(ejemplares-ejemplaresprestados);
                     libro.setAutor(autor);
                     libro.setEditorial(editorial);
                     libroRepositorio.save(libro);
@@ -157,7 +157,7 @@ public class LibroServicio {
         }
     }
 
-    public void validar(Long isbn, String titulo, Integer anio) throws ErrorServicio {
+    public void validar(Long isbn, String titulo, Integer anio, Integer ejemplares) throws ErrorServicio {
         if (isbn == null) {
             throw new ErrorServicio("Debe indicar el ISBN");
         }
@@ -167,7 +167,28 @@ public class LibroServicio {
         if (anio == null) {
             throw new ErrorServicio("Debe indicar el año");
         }
+        if(ejemplares==null){
+            throw new ErrorServicio("Debe indicar el número de ejemplares");
+        }
     }
+     
+    public void validar2(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresprestados) throws ErrorServicio {
+        if (isbn == null) {
+            throw new ErrorServicio("Debe indicar el ISBN");
+        }
+        if (titulo == null || titulo.isEmpty()) {
+            throw new ErrorServicio("Debe indicar el título");
+        }
+        if (anio == null) {
+            throw new ErrorServicio("Debe indicar el año");
+        }
+        if(ejemplares==null){
+            throw new ErrorServicio("Debe indicar el número de ejemplares");
+        }
+        if(ejemplaresprestados==null){
+            throw new ErrorServicio("Debe indicar el número de ejemplares prestados");
+        }
         
+    }
 
 }

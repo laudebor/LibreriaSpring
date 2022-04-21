@@ -89,12 +89,12 @@
               
               <label>Autor</label>
               <select class="form-control" name="idautor"> 
-              <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option> 
+              <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}" th:selected="${autor!=null &&autor.id==idautor}"></option> 
               </select> 
               
               <label>Editorial</label>
               <select class="form-control" name="ideditorial"> 
-              <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option> 
+              <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}" th:selected="${editorial!=null &&editorial.id==ideditorial}"></option> 
               </select> 
               
               <!--<label>Id del autor</label>
