@@ -187,6 +187,8 @@ public class LibroServicio {
         }
         if(ejemplaresprestados==null){
             throw new ErrorServicio("Debe indicar el número de ejemplares prestados");
+        }else if(ejemplaresprestados>ejemplares){
+            throw new ErrorServicio("El número de ejemplares prestados no puede superar el número total de ejemplares");
         }
         
     }
