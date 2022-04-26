@@ -7,8 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <title>Libreria- Inicio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-
+  TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/EstiloTabla.css">
+  <title>Libreria</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,10 +26,16 @@
 
 <body>
 
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-
+  DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-
+  ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  
+
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Libreria</a>
+      <a class="navbar-brand" href="/">Librería</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -42,27 +50,13 @@
             <li class="nav-item">
             <a class="nav-link" href="/registroEditorial">Registrar editorial</a>
           </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaLibros">Libros</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaEditoriales">Editoriales</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaAutores">Autores</a>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <header class="masthead text-center text-white">
+ <header class="masthead text-center text-white">
     <div class="masthead-content">
-      <div class="container">
-        <h1 class="masthead-heading mb-0">Librería </h1>
-        <!--<h2 class="masthead-subheading mb-0">Encontrale pareja a tu choco.</h2>-->
-        <!--<a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5"></a>-->
-      </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
     <div class="bg-circle-2 bg-circle"></div>
@@ -70,56 +64,35 @@
     <div class="bg-circle-4 bg-circle"></div>
   </header>
 
-  <section>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-2">
-          <div class="p-5">
-            <img class="img-fluid rounded-circle" src="img/m1.jpeg" alt="">
-          </div>
-        </div>
-        <div class="col-lg-6 order-lg-1">
-          <div class="p-5">
-            <h2 class="display-4">Busca el libro que te guste</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nombre de la editorial</th>
+            <th scope="col">Editar nombre</th>
+            <th scope="col">Dar de baja/alta</th>
+        </tr>
+    </thead>
+    <tbody>
+        <p th:if="${error != null}" th:text="${error}" style="color:red;"></p> 
+        <tr th:each="editorial : ${editoriales}">
+            <td scope="row" th:text="${editorial.nombre}">   
+            </td>
+            <td>
+              <a class="btn btn-info" role="button" th:href="@{/modificarEd(id=${editorial.id})}" style="color: white;">Editar</a> 
+            </td>
+            
+            <td th:if="${editorial.alta==false}">
+                <a class="btn btn-success" th:href="@{/darAltaEd/{id} (id=${editorial.id})}">Alta</a>
+            </td>
+            <td th:unless="${editorial.alta==false}">
+                <a class="btn btn-danger" th:href="@{/darBajaEd/{id} (id=${editorial.id})}" >Baja</a>
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
 
-  <section>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <div class="p-5">
-            <img class="img-fluid rounded-circle" src="img/m2.jpg" alt="">
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="p-5">
-              <h2 class="display-4">Pedilo</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-2">
-          <div class="p-5">
-            <img class="img-fluid rounded-circle" src="img/m3.jpeg" alt="">
-          </div>
-        </div>
-        <div class="col-lg-6 order-lg-1">
-          <div class="p-5">
-              <h2 class="display-4">y llevatelo a tu casa!</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Footer -->
   <footer class="py-5 bg-black">

@@ -70,6 +70,11 @@ public class EditorialServicio {
         }
     }
     
+    public Editorial buscarPorId(String id){
+        
+        return editorialRepositorio.getById(id);
+    }
+    
     public void validar(String nombre) throws ErrorServicio{
         if(nombre==null||nombre.isEmpty()){
             throw new ErrorServicio("Debe indicar un nombre");

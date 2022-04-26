@@ -37,6 +37,8 @@ public class PortalControlador {
         return "index";
     }
     
+    /*METODOS DE LA ENTIDAD LIBRO*/
+    
     @GetMapping("/registroLibro")
     public String registroLibro(ModelMap modelo){
          List<Autor> autores = autorServicio.listarAutores();
@@ -44,23 +46,6 @@ public class PortalControlador {
          modelo.put("autores", autores);
          modelo.put("editoriales", editoriales);
         return "registroLibro.html";
-    }
-    
-    @GetMapping("/registroAutor")
-     public String registroAutor() {
-        return "registroAutor.html";
-    }
-     
-     @GetMapping("/listaLibros")
-     public String listarLibros(ModelMap modelo) {
-         List<Libro> libros = libroServicio.listarLibros();
-         modelo.put("libros", libros);
-        return "listaLibros.html";
-    }
-    
-    @GetMapping("/registroEditorial")
-    public String registroEditorial(){
-        return "registroEditorial";
     }
     
     @PostMapping("/registrarLibro")
@@ -86,35 +71,12 @@ public class PortalControlador {
         return "exito.html";
     }
     
-    
-    @PostMapping("/registrarAutor")
-    public String registrarAutor(ModelMap modelo, @RequestParam String nombre){
-        try{
-            autorServicio.cargar(nombre);
-        }catch(ErrorServicio ex){
-            modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            return "registroAutor.html";
-        }
-        modelo.put("titulo", "Autores!!!");
-        modelo.put("descripcion", "Autor cargado con éxito");
-        return "exito.html";
+    @GetMapping("/listaLibros")
+    public String listarLibros(ModelMap modelo) {
+         List<Libro> libros = libroServicio.listarLibros();
+         modelo.put("libros", libros);
+        return "listaLibros.html";
     }
-    
-    @PostMapping("/registrarEditorial")
-    public String registrarEditorial(ModelMap modelo, @RequestParam String nombre){
-        try{
-            editorialServicio.cargar(nombre);
-        }catch(ErrorServicio ex){
-            modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            return "registroAutor.html";
-        }
-        modelo.put("titulo", "Editoriales!!!!!");
-        modelo.put("descripcion", "Editorial cargada con éxito");
-        return "exito.html";
-    }
-    
     
     @GetMapping("/darBaja/{id}")
     public String darBajaLibro(ModelMap modelo, @PathVariable String id){
@@ -122,7 +84,6 @@ public class PortalControlador {
             libroServicio.darBaja(id);
         }catch(ErrorServicio ex){
             modelo.put("error", ex.getMessage());
-            //modelo.put("descripcion", "Surgió un error  dar de baja");
             return "listaLibros";
         }
         return "redirect:/listaLibros";
@@ -134,7 +95,6 @@ public class PortalControlador {
             libroServicio.darAlta(id);
         }catch(ErrorServicio ex){
             modelo.put("error", ex.getMessage());
-            //modelo.put("descripcion", "Surgió un error  dar de baja");
             return "listaLibros";
         }
         return "redirect:/listaLibros";
@@ -148,6 +108,7 @@ public class PortalControlador {
          modelo.put("editoriales", editoriales);
         return "modificarLibro.html";
     }
+    
     
     @GetMapping("/modificar")
     public String modificar(ModelMap modelo, @RequestParam String id){
@@ -186,6 +147,167 @@ public class PortalControlador {
             modelo.put("ejemplar", libro);
             modelo.put("error", ex.getMessage());
             return "modificarLibro";
+        }
+        return "exito";
+    }
+    
+    
+    /*MÉTODOS DE LA ENTIDAD AUTOR*/
+    
+    
+    @GetMapping("/registroAutor")
+    public String registroAutor() {
+        return "registroAutor.html";
+    }
+    
+    @PostMapping("/registrarAutor")
+    public String registrarAutor(ModelMap modelo, @RequestParam String nombre){
+        try{
+            autorServicio.cargar(nombre);
+        }catch(ErrorServicio ex){
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            return "registroAutor.html";
+        }
+        modelo.put("titulo", "Autores!!!");
+        modelo.put("descripcion", "Autor cargado con éxito");
+        return "exito.html";
+    }
+    
+    @GetMapping("/listaAutores")
+    public String listarAutores(ModelMap modelo) {
+         List<Autor> autores = autorServicio.listarAutores();
+         modelo.put("autores", autores);
+        return "listaAutores.html";
+    }
+    
+    
+    @GetMapping("/darBajaA/{id}")
+    public String darBajaAutor(ModelMap modelo, @PathVariable String id){
+        try{
+            autorServicio.darBaja(id);
+        }catch(ErrorServicio ex){
+            modelo.put("error", ex.getMessage());
+            return "listaAutores";
+        }
+        return "redirect:/listaAutores";
+    }
+    
+    @GetMapping("/darAltaA/{id}")
+    public String darAltaAutor(ModelMap modelo, @PathVariable String id){
+        try{
+            autorServicio.darAlta(id);
+        }catch(ErrorServicio ex){
+            modelo.put("error", ex.getMessage());
+            return "listaAutores";
+        }
+        return "redirect:/listaAutores";
+    }
+    
+    @GetMapping("/modificarAutor")
+    public String modificarAutor(){
+        return "modificarAutor.html";
+    }
+    
+    @GetMapping("/modificarA")
+    public String modificarA(ModelMap modelo, @RequestParam String id){
+        
+        Autor autor = autorServicio.buscarPorId(id);
+        modelo.addAttribute("autor", autor);
+        return "modificarAutor.html";
+    }
+     
+    @PostMapping("/actualizarA")
+    public String actualizarAutor(ModelMap modelo, @RequestParam String id, @RequestParam String nombre){
+        Autor autor = null;
+        try{
+            autor = autorServicio.buscarPorId(id);
+            autorServicio.modificar(id, nombre);
+        }catch(ErrorServicio ex){
+            modelo.put("autor", autor);
+            modelo.put("nombre", nombre);
+            modelo.put("error", ex.getMessage());
+            return "modificarAutor";
+        }
+        return "exito";
+    }
+    
+    
+    /*MÉTODOS DE LA ENTIDAD EDITORIAL*/
+    
+    
+    @GetMapping("/registroEditorial")
+    public String registroEditorial(){
+        return "registroEditorial";
+    }
+   
+    @PostMapping("/registrarEditorial")
+    public String registrarEditorial(ModelMap modelo, @RequestParam String nombre){
+        try{
+            editorialServicio.cargar(nombre);
+        }catch(ErrorServicio ex){
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            return "registroAutor.html";
+        }
+        modelo.put("titulo", "Editoriales!!!!!");
+        modelo.put("descripcion", "Editorial cargada con éxito");
+        return "exito.html";
+    }
+    
+    @GetMapping("/listaEditoriales")
+    public String listarEditoriales(ModelMap modelo) {
+         List<Editorial> editoriales = editorialServicio.listarEditoriales();
+         modelo.put("editoriales", editoriales);
+        return "listaEditoriales.html";
+    }
+   
+    @GetMapping("/darBajaEd/{id}")
+    public String darBajaEditorial(ModelMap modelo, @PathVariable String id){
+        try{
+            editorialServicio.darBaja(id);
+        }catch(ErrorServicio ex){
+            modelo.put("error", ex.getMessage());
+            return "listaEditoriales";
+        }
+        return "redirect:/listaEditoriales";
+    }
+    
+    @GetMapping("/darAltaEd/{id}")
+    public String darAltaEditorial(ModelMap modelo, @PathVariable String id){
+        try{
+            editorialServicio.darAlta(id);
+        }catch(ErrorServicio ex){
+            modelo.put("error", ex.getMessage());
+            return "listaEditoriales";
+        }
+        return "redirect:/listaEditoriales";
+    }
+   
+    @GetMapping("/modificarEditorial")
+    public String modificarEditorial(){
+        return "modificarEditorial.html";
+    }   
+    
+    @GetMapping("/modificarEd")
+    public String modificarEd(ModelMap modelo, @RequestParam String id){
+        
+        Editorial editorial = editorialServicio.buscarPorId(id);
+        modelo.addAttribute("editorial", editorial);
+        return "modificarEditorial.html";
+    }    
+    
+    @PostMapping("/actualizarEd")
+    public String actualizarEditorial(ModelMap modelo, @RequestParam String id, @RequestParam String nombre){
+        Editorial editorial = null;
+        try{
+            editorial = editorialServicio.buscarPorId(id);
+            editorialServicio.modificar(id, nombre);
+        }catch(ErrorServicio ex){
+            modelo.put("editorial", editorial);
+            modelo.put("nombre", nombre);
+            modelo.put("error", ex.getMessage());
+            return "modificarEditorial";
         }
         return "exito";
     }

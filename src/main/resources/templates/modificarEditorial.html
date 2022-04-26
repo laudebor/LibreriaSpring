@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Libreria- Inicio</title>
+  <title>Libreria - Modificar editorial</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +27,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Libreria</a>
+      <a class="navbar-brand" href="/">Librería</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -42,33 +42,24 @@
             <li class="nav-item">
             <a class="nav-link" href="/registroEditorial">Registrar editorial</a>
           </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaLibros">Libros</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaEditoriales">Editoriales</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaAutores">Autores</a>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <header class="masthead text-center text-white">
+ <!-- <header class="masthead text-center text-white">
     <div class="masthead-content">
       <div class="container">
-        <h1 class="masthead-heading mb-0">Librería </h1>
-        <!--<h2 class="masthead-subheading mb-0">Encontrale pareja a tu choco.</h2>-->
-        <!--<a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5"></a>-->
+        <h1 class="masthead-heading mb-0">Librería</h1>
+        <!--<h2 class="masthead-subheading mb-0">Encontrale pareja a tu choco.</h2>
+        <a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>
       </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
     <div class="bg-circle-2 bg-circle"></div>
     <div class="bg-circle-3 bg-circle"></div>
     <div class="bg-circle-4 bg-circle"></div>
-  </header>
+  </header>-->
 
   <section>
     <div class="container">
@@ -80,46 +71,25 @@
         </div>
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
-            <h2 class="display-4">Busca el libro que te guste</h2>
+            <h2 class="display-4">Ingresá el nuevo nombre de la editorial</h2>
+            <form action="/actualizarEd" method="POST" enctype="multipart/form-data">                 
+              <p th:if="${error != null}" th:text="${error}" style="color:red;"></p> 
+              
+              
+              <input type="hidden" class="form-control" name="id" th:value="${editorial.id}"/>
+              
+              <label>Nombre</label>
+              <input type="text" class="form-control" name="nombre" th:value="${editorial.nombre}"/>
+
+                   
+              <br/><button type="submit" class="btn btn-primary">Modificar</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <div class="p-5">
-            <img class="img-fluid rounded-circle" src="img/m2.jpg" alt="">
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="p-5">
-              <h2 class="display-4">Pedilo</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-2">
-          <div class="p-5">
-            <img class="img-fluid rounded-circle" src="img/m3.jpeg" alt="">
-          </div>
-        </div>
-        <div class="col-lg-6 order-lg-1">
-          <div class="p-5">
-              <h2 class="display-4">y llevatelo a tu casa!</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Footer -->
   <footer class="py-5 bg-black">

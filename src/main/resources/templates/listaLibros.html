@@ -75,7 +75,8 @@
     <tbody>
         <p th:if="${error != null}" th:text="${error}" style="color:red;"></p> 
         <tr th:each="libro : ${libros}">
-            <td scope="row" th:text="${libro.titulo}"></td>
+            <td scope="row" th:text="${libro.titulo}">   
+            </td>
             <td>
               <a class="btn btn-info" role="button" th:href="@{/modificar(id=${libro.id})}" style="color: white;">Editar</a>
             </td>
