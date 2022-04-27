@@ -25,43 +25,56 @@
 <body>
 
   <!-- Navigation -->
+  <div th:fragment ="navbar">
   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Libreria</a>
+      <a class="navbar-brand" href="/">Libreria</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/registroLibro">Registrar libro</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/registroAutor">Registrar autor</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/registroEditorial">Registrar editorial</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaLibros">Libros</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaEditoriales">Editoriales</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/listaAutores">Autores</a>
-          </li>
+            
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Libros
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/registroLibro">Registrar un libro</a>
+          <a class="dropdown-item" href="/listaLibros">Administrar libros</a>
+        </div>
+      </li>
+            
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Autores
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/registroAutor">Registrar un autor</a>
+          <a class="dropdown-item" href="/listaAutores">Administrar autores</a>
+        </div>
+      </li>
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Editoriales
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/registroEditorial">Registrar una editorial</a>
+          <a class="dropdown-item" href="/listaEditoriales">Administrar editoriales</a>
+        </div>
+      </li>
+            
         </ul>
       </div>
     </div>
   </nav>
+</div>
 
   <header class="masthead text-center text-white">
     <div class="masthead-content">
       <div class="container">
         <h1 class="masthead-heading mb-0">Librería </h1>
-        <!--<h2 class="masthead-subheading mb-0">Encontrale pareja a tu choco.</h2>-->
-        <!--<a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5"></a>-->
+       
       </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
