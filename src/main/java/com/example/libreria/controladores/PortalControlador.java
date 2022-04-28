@@ -36,7 +36,10 @@ public class PortalControlador {
     public String index(){
         return "index";
     }
-    
+    @GetMapping("/exito")
+    public String exito(){
+        return "exito.html";
+    }
    
     
     /*METODOS DE LA ENTIDAD LIBRO*/
@@ -68,8 +71,8 @@ public class PortalControlador {
             modelo.put("ideditorial", ideditorial);
             return "registroLibro.html";
         }
-        modelo.put("titulo", "Bienvenido a la librería!");
-        modelo.put("descripcion", "El libro ha sido registrado con éxito");
+        //modelo.put("titulo", "Bienvenido a la librería!");
+        modelo.put("mensaje", "Libro registrado con éxito");
         return "exito.html";
     }
     
@@ -150,6 +153,7 @@ public class PortalControlador {
             modelo.put("error", ex.getMessage());
             return "modificarLibro";
         }
+        modelo.put("mensaje", "Se ha modificado el libro " + titulo);
         return "exito";
     }
     
@@ -171,8 +175,8 @@ public class PortalControlador {
             modelo.put("nombre", nombre);
             return "registroAutor.html";
         }
-        modelo.put("titulo", "Autores!!!");
-        modelo.put("descripcion", "Autor cargado con éxito");
+        //modelo.put("titulo", "Autores!!!");
+        modelo.put("mensaje", "Autor registrado con éxito");
         return "exito.html";
     }
     
@@ -231,6 +235,7 @@ public class PortalControlador {
             modelo.put("error", ex.getMessage());
             return "modificarAutor";
         }
+        modelo.put("mensaje", "Se ha modificado el autor " + nombre);
         return "exito";
     }
     
@@ -252,8 +257,8 @@ public class PortalControlador {
             modelo.put("nombre", nombre);
             return "registroAutor.html";
         }
-        modelo.put("titulo", "Editoriales!!!!!");
-        modelo.put("descripcion", "Editorial cargada con éxito");
+        
+        modelo.put("mensaje", "Editorial registrada con éxito");
         return "exito.html";
     }
     
@@ -311,6 +316,7 @@ public class PortalControlador {
             modelo.put("error", ex.getMessage());
             return "modificarEditorial";
         }
+        modelo.put("mensaje", "Se ha modificado la editorial " + nombre);
         return "exito";
     }
     
