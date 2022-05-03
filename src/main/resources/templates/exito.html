@@ -28,30 +28,40 @@
   <!-- Navigation -->
   <div th:replace="index :: navbar"></div>
   
-  <header class="masthead text-center text-white">
+  
+   <header>
+  <div
+    id="intro-example"
+    class="p-5 text-center bg-image"
+    style="background-color: white;"
+  >
+    
+          <h2 th:text="${mensaje}" style="color: black;"></h2>
+
+  </div>
+  <!-- Background image -->
+</header>
+  
+  
+ <!-- <header class="masthead text-center text-black" style="background-color: white;">
     <div class="masthead-content">
       <div class="container">
         <h2 class="masthead-subheading mb-0" th:text="${mensaje}"></h2>
         <!--<h2 class="masthead-subheading mb-0">Encontrale pareja a tu choco.</h2>-->
-        <!-- <a href="/#" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>-->
+        <!-- <a href="/#" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>
       </div>
     </div>
     <!--<div class="bg-circle-1 bg-circle"></div>
     <div class="bg-circle-2 bg-circle"></div>
     <div class="bg-circle-3 bg-circle"></div>
-    <div class="bg-circle-4 bg-circle"></div>-->
-  </header>
+    <div class="bg-circle-4 bg-circle"></div>
+  </header>-->
 
   
 
 
   <!-- Footer -->
-  <footer class="py-5 bg-black">
-    <div class="container">
-      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2022</p>
-    </div>
-    <!-- /.container -->
-  </footer>
+  <div th:replace="index :: footer"></div>  
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
