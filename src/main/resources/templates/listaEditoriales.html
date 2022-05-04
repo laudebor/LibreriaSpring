@@ -13,14 +13,14 @@
   <title>Libreria</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
   <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/one-page-wonder.min.css" rel="stylesheet">
+  <link href="/css/one-page-wonder.min.css" rel="stylesheet">
 
 </head>
 
@@ -36,7 +36,9 @@
   <div th:replace="index :: navbar"></div>
   
  
-
+<section>
+  <div class="container">
+      <div class="row align-items-center">
   <table class="table">
     <thead>
         <tr>
@@ -51,20 +53,22 @@
             <td scope="row" th:text="${editorial.nombre}">   
             </td>
             <td>
-              <a class="btn btn-info" role="button" th:href="@{/modificarEd(id=${editorial.id})}" style="color: white;">Editar</a> 
+              <a class="btn btn-info" role="button" th:href="@{/editorial/modificar(id=${editorial.id})}" style="color: white;">Editar</a> 
             </td>
             
             <td th:if="${editorial.alta==false}">
-                <a class="btn btn-success" th:href="@{/darAltaEd/{id} (id=${editorial.id})}">Alta</a>
+                <a class="btn btn-success" th:href="@{/editorial/darAlta/{id} (id=${editorial.id})}">Alta</a>
             </td>
             <td th:unless="${editorial.alta==false}">
-                <a class="btn btn-danger" th:href="@{/darBajaEd/{id} (id=${editorial.id})}" >Baja</a>
+                <a class="btn btn-danger" th:href="@{/editorial/darBaja/{id} (id=${editorial.id})}" >Baja</a>
             </td>
         </tr>
         
     </tbody>
 </table>
-
+</div>
+  </div>
+</section>
 
 
   <!-- Footer -->

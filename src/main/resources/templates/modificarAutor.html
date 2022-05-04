@@ -11,14 +11,14 @@
   <title>Libreria - Modificar autor</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
   <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/one-page-wonder.min.css" rel="stylesheet">
+  <link href="/css/one-page-wonder.min.css" rel="stylesheet">
 
 </head>
 
@@ -38,7 +38,7 @@
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
             <h2 class="display-4">Ingresá el nuevo nombre del autor</h2>
-            <form action="/actualizarA" method="POST" enctype="multipart/form-data">                 
+            <form action="/autor/actualizar" method="POST" enctype="multipart/form-data">                 
               <p th:if="${error != null}" th:text="${error}" style="color:red;"></p> 
               
               
