@@ -53,7 +53,7 @@
             <td scope="row" th:text="${editorial.nombre}">   
             </td>
             <td>
-              <a class="btn btn-info" role="button" th:href="@{/editorial/modificar(id=${editorial.id})}" style="color: white;">Editar</a> 
+              <a class="btn btn-info" role="button" target="_blank" th:href="@{/editorial/modificar(id=${editorial.id})}" style="color: white;">Editar</a> 
             </td>
             
             <td th:if="${editorial.alta==false}">

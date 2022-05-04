@@ -52,7 +52,7 @@
             <td scope="row" th:text="${libro.titulo}">   
             </td>
             <td>
-              <a class="btn btn-info" role="button" th:href="@{/libro/modificar(id=${libro.id})}" style="color: white;">Editar</a>
+              <a class="btn btn-info" role="button" target="_blank" th:href="@{/libro/modificar(id=${libro.id})}" style="color: white;">Editar</a>
             </td>
             
             <td th:if="${libro.alta==false}">
